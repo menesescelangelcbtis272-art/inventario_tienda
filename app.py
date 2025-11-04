@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-app = Flask(__name__)
+app = Flask(inventario)
 app.secret_key = os.getenv("FLASK_SECRET", "dev-secret")
 
 MONGO_URI = os.environ.get(
