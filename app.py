@@ -37,6 +37,19 @@ try:
 except Exception as e:
     db = None
     print(" No se pudo conectar con MongoDB Atlas:", e)
+
+@app.route("/")
+def index():
+    if db is None:
+        flash("Error al obtener datos: la base de datos no está conectada.", "danger")
+        return render_template("index.html", datos=[])
+    try:
+        datos = db.registros.find()
+    except Exception as e:
+        flash(f"Error al obtener datos: {e}", "danger")
+        datos = []
+    return render_template("index.html", datos=datos)
+    
 @app.route("/")
 def index():
     items = list(productos.find())
