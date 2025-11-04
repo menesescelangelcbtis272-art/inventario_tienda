@@ -7,12 +7,36 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = Flask(__name__)
-app.secret_key = os.getenv("FLASK_SECRET", "clave_secreta")
+app.secret_key = os.getenv("FLASK_SECRET", "dev-secret")
 
-client = MongoClient("mongodb+srv://menesescelangelcbtis272_db_user:admin1243@inventario.daylvqt.mongodb.net/")
-db = client.inventario
-productos = db.productos
+MONGO_URI = os.environ.get(
+    "MONGO_URI", "mongodb+srv://menesescelangelcbtis272_db_user:admin1243@inventario.daylvqt.mongodb.net/")
 
+try:
+   
+    client = MongoClient(
+        MONGO_URI,
+        tls=True,
+        tlsAllowInvalidCertificates=False,
+        serverSelectionTimeoutMS=10000
+    )
+    db = client.get_default_database()
+    print("Conexión segura establecida con MongoDB Atlas")
+except Exception as e:
+   
+    print("Conexión segura falló, intentando modo escolar...")
+try:
+    client = MongoClient(
+        MONGO_URI,
+        tls=True,
+        tlsAllowInvalidCertificates=True,
+        serverSelectionTimeoutMS=10000
+    )
+    db = client.get_default_database()
+    print(" Conexión establecida con MongoDB Atlas (modo escolar sin SSL)")
+except Exception as e:
+    db = None
+    print(" No se pudo conectar con MongoDB Atlas:", e)
 @app.route("/")
 def index():
     items = list(productos.find())
