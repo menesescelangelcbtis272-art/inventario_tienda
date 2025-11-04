@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>Editar producto</h2>
+<form method="POST">
+  <div class="mb-3">
+    <label class="form-label">Nombre</label>
+    <input name="nombre" class="form-control" required value="{{ producto.nombre }}">
+  </div>
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <label class="form-label">Precio</label>
+      <input type="number" step="0.01" name="precio" class="form-control" value="{{ producto.precio }}">
+    </div>
+    <div class="col-md-6 mb-3">
+      <label class="form-label">Cantidad</label>
+      <input type="number" name="cantidad" class="form-control" value="{{ producto.cantidad }}">
+    </div>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Proveedor</label>
+    <input name="proveedor" class="form-control" value="{{ producto.proveedor }}">
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Descripción</label>
+    <textarea name="descripcion" class="form-control">{{ producto.descripcion }}</textarea>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Imagen (archivo en static/img/)</label>
+    <input name="imagen" class="form-control" value="{{ producto.imagen }}">
+  </div>
+  <button class="btn btn-primary">Actualizar</button>
+  <a href="{{ url_for('index') }}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

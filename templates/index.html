@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2 class="mb-3">Lista de productos</h2>
+{% if not items %}
+  <p class="text-muted">No hay productos en el inventario.</p>
+{% endif %}
+<div class="row g-4">
+  {% for p in items %}
+  <div class="col-sm-6 col-md-4">
+    <div class="card shadow-sm h-100">
+      <img src="{{ url_for('static', filename='img/' + p.imagen) }}" class="card-img-top" alt="{{ p.nombre }}">
+      <div class="card-body d-flex flex-column">
+        <h5 class="card-title">{{ p.nombre }}</h5>
+        <p class="card-text">Proveedor: {{ p.proveedor }}</p>
+        <p class="card-text">Precio: ${{ '%.2f'|format(p.precio) }}</p>
+        <p class="card-text">Cantidad: {{ p.cantidad }}</p>
+        <p class="text-muted small">{{ p.descripcion }}</p>
+        <div class="mt-auto d-flex gap-2">
+          <a href="{{ url_for('edit', id=p._id) }}" class="btn btn-sm btn-outline-primary">Editar</a>
+          <form method="post" action="{{ url_for('delete', id=p._id) }}" onsubmit="return confirm('¿Eliminar este producto?');">
+            <button class="btn btn-sm btn-outline-danger" type="submit">Eliminar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}
