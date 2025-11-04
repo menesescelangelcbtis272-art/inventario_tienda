@@ -20,7 +20,7 @@ try:
         tlsAllowInvalidCertificates=False,
         serverSelectionTimeoutMS=10000
     )
-    db = client.get_default_database()
+    db = client.get_default_database("inventario")
     print("Conexión segura establecida con MongoDB Atlas")
 except Exception as e:
    
@@ -32,7 +32,7 @@ try:
         tlsAllowInvalidCertificates=True,
         serverSelectionTimeoutMS=10000
     )
-    db = client.get_default_database()
+    db = client.get_default_database("inventario")
     print(" Conexión establecida con MongoDB Atlas (modo escolar sin SSL)")
 except Exception as e:
     db = None
