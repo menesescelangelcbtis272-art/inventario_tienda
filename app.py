@@ -10,7 +10,7 @@ app = Flask(inventario)
 app.secret_key = os.getenv("FLASK_SECRET", "dev-secret")
 
 MONGO_URI = os.environ.get(
-    "MONGO_URI", "mongodb+srv://menesescelangelcbtis272_db_user:admin1243@inventario.daylvqt.mongodb.net/inventario")
+    "MONGO_URI", "mongodb+srv://menesescelangelcbtis272_db_user:admin1243@inventario.daylvqt.mongodb.net/")
 
 try:
    
